@@ -16,7 +16,7 @@ public class CreatureManager : MonoBehaviour
 	private float rotationSpeed = 10.0f;
 	private float wCollision = 1000.0f, wCentering = 50.0f, wRepulsion = 200.0f, wVelMatching = 10.0f, wWander = 100.0f;
 	public bool hasCentering = true, hasRepulsion = true, hasVelMatching = true, hasWander = true, trailsOn = true;
-	public int boidCount = 40;
+	public int boidCount = 50;
 	private float centeringRadius = 50.0f, repulsionRadius = 10.0f;
 	public int seed = 5;
 	private float minVelocity = 5.0f, maxVelocity = 200.0f;

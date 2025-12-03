@@ -32,6 +32,9 @@ public class Generate : MonoBehaviour
     public GameObject CreateCreature(Vector3 position, Vector3 rotation, bool hasWings = true)
     {
         GameObject creature = new GameObject("creature");
+        CreatureAnimations refs = creature.AddComponent<CreatureAnimations>();
+        List<RotateObj> legRotators = new List<RotateObj>();
+        List<RotateObj> wingRotators = new List<RotateObj>();
 
         GameObject mainBody = Instantiate(body);
         mainBody.transform.SetParent(creature.transform, true);
@@ -121,6 +124,14 @@ public class Generate : MonoBehaviour
             rightMiddle.xAngle = -20.0f;
             rightBack.xSpeed = randomSpeedWalk;
             rightBack.xAngle = 20.0f;
+
+            legRotators.Add(leftFront);
+            legRotators.Add(leftMiddle);
+            legRotators.Add(leftBack);
+
+            legRotators.Add(rightFront);
+            legRotators.Add(rightMiddle);
+            legRotators.Add(rightBack);
         } else
 		{
 			legLeftFront.transform.rotation = Quaternion.Euler(0f, -80f, -90f);
@@ -226,6 +237,9 @@ public class Generate : MonoBehaviour
             rightFlapper.xSpeed = randomSpeed;
             leftFlapper.xAngle = -45.0f;
             rightFlapper.xAngle = 45.0f;
+
+            wingRotators.Add(leftFlapper);
+            wingRotators.Add(rightFlapper);
 
             wingLeft.transform.SetParent(creature.transform, true);
             wingRight.transform.SetParent(creature.transform, true);
