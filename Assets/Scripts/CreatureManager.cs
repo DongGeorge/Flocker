@@ -83,7 +83,7 @@ public class CreatureManager : MonoBehaviour
 				Vector3 wanderForce = new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f));
 
 				creatureAcceleration[i] = CalculateCollisionForce(creatureList, creatureVelocity, i)
-					+ CalculateRadialForce(creatureList, creatureVelocity, i, centeringRadius, 5, false)
+					+ CalculateRadialForce(creatureList, creatureVelocity, i, centeringRadius, 7, false)
 					+ CalculateRadialForce(creatureList, creatureVelocity, i, repulsionRadius, 50, true)
 					+ wanderForce.normalized * wWander * Convert.ToInt32(hasWander);
 
@@ -161,7 +161,7 @@ public class CreatureManager : MonoBehaviour
 		GameObject[] creatureList,
 		Vector3[] creatureVelocity,
 		int creatureIndex,
-		float safetyFactor = 1.5f
+		float safetyFactor = 3.0f
 	)
 	{
 		Vector3 boidPos = creatureList[creatureIndex].transform.position;
@@ -175,7 +175,9 @@ public class CreatureManager : MonoBehaviour
 			if (Physics.Raycast(boidPos, boidDirection, out hit, safeDistance, obstacleLayerMask)) {
 				// Debug.Log("Boid will collide!");
 				// Apply repulsive force normal to obstacle
-				return hit.normal * wCollision;
+				float closenessRatio = 1.0f - hit.distance / safeDistance;
+				float strength = closenessRatio * closenessRatio;
+				return hit.normal * strength * wCollision;
 			}
 		}
 		return new Vector3(0,0,0);
