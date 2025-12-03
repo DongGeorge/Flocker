@@ -20,6 +20,7 @@ public class CreatureManager : MonoBehaviour
 	private float centeringRadius = 50.0f, repulsionRadius = 10.0f;
 	public int seed = 5;
 	private float minVelocity = 5.0f, maxVelocity = 200.0f;
+	private float maxAnimRate = 30.0f, minAnimeRate = 2.0f;
 	private bool isScatter = false;
 	void Start()
 	{
@@ -104,6 +105,33 @@ public class CreatureManager : MonoBehaviour
 				// Point in direction of travel
 				Quaternion direction = Quaternion.LookRotation(creatureVelocity[i]);
 				creatureList[i].transform.rotation = Quaternion.Slerp(creatureList[i].transform.rotation, direction * baseRotation, Time.deltaTime * rotationSpeed);
+
+				// Update animation speeds
+				float currentSpeed = creatureVelocity[i].magnitude;
+				CreatureAnimations animRefs = creatureList[i].GetComponent<CreatureAnimations>();
+				if (animRefs != null)
+				{
+					// Calculate the Normalized Speed (0 to 1)
+					float normalizedSpeed = Mathf.Clamp01(currentSpeed / maxVelocity);
+
+					float targetAnimRate = Mathf.Lerp(minAnimeRate, maxAnimRate, normalizedSpeed);
+					
+					// Wings
+					if (animRefs.wingScripts != null)
+					{
+						foreach (var wing in animRefs.wingScripts)
+							if (wing != null) wing.xSpeed = targetAnimRate;
+					}
+
+					// Legs
+					if (animRefs.legScripts != null)
+					{
+						float legSpeed = targetAnimRate * 0.5f; 
+						
+						foreach (var leg in animRefs.legScripts)
+							if (leg != null) leg.xSpeed = legSpeed;
+					}
+				}
 			}
 			else
 			{

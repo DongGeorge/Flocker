@@ -322,6 +322,9 @@ public class Generate : MonoBehaviour
         trail.material = new Material(Shader.Find("Sprites/Default"));
     #endregion
 
+        refs.legScripts = legRotators.ToArray();
+        refs.wingScripts = wingRotators.ToArray();
+
         return creature;
 	}
 }
