@@ -1,0 +1,39 @@
+# Unity Library cache files/folders (safe to regenerate)
+Library/Artifacts/
+Library/Bee/
+Library/BurstCache/
+Library/PackageCache/
+Library/ScriptAssemblies/
+Library/Search/
+Library/ShaderCache/
+
+Library/ArtifactDB
+Library/SourceAssetDB
+
+# General Unity cache and temporary files (good hygiene)
+# Library/
+# Temp/
+# Obj/
+# Build/
+# Builds/
+# Logs/
+# UserSettings/
+
+# IDE and OS junk
+.vscode/
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+.DS_Store
+Thumbs.db
